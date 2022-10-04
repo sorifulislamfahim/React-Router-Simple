@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
@@ -8,15 +9,47 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
 
     useEffect( () =>{
+        console.log('products load before fetch')
         fetch('https://raw.githubusercontent.com/ProgrammingHero1/ema-john-resources/main/fakeData/products.json')
         .then(res => res.json())
-        .then(data => setProduts(data))
+        .then(data => {
+            setProduts(data);
+            // console.log('Products loaded')
+        })
     }, []);
 
-    const handleAddToCart = (product) => {
-        // console.log(product);
-        const newCart = [...cart, product];
+    useEffect(() => {
+        console.log('local storage first line', products)
+        const storedCart = getStoredCart();
+        const savedCart = [];
+        for(const id in storedCart){
+            const addedProduct = products.find(product => product.id === id);
+            if(addedProduct){
+                const quantity = storedCart[id];
+                addedProduct.quantity = quantity;
+                savedCart.push(addedProduct);   
+            }
+        }
+        setCart(savedCart);
+        // console.log('local storage finished')
+    }, [products])
+
+    const handleAddToCart = (selectedProduct) => {
+        console.log(selectedProduct);
+        let newCart = []; 
+        const exist = cart.find(product => product.id === selectedProduct.id);
+        if(!exist){
+            selectedProduct.quantity = 1;
+            newCart = [...cart, selectedProduct];
+        }
+        else{
+            const rest = cart.filter(product => product.id !== selectedProduct.id);
+            exist.quantity = exist.quantity + 1;
+            newCart = [...rest, exist];
+        }
+        
         setCart(newCart);
+        addToDb(selectedProduct.id)
     }
 
     return (
