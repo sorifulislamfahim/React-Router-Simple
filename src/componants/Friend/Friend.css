@@ -1,0 +1,10 @@
+.friend{
+    border: 2px solid purple;
+    margin: 30px;
+    border-radius: 10px;
+}
+
+.friend:hover{
+    background-color: brown;
+    color: white;
+}

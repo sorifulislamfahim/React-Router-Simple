@@ -1,0 +1,22 @@
+.post{
+    border: 2px solid palevioletred;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 15px;
+}
+.post button {
+    background-color: coral;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    color: white;
+    margin-left: 10px;
+}
+.post button:hover{
+    background-color: crimson;
+}
+.active{
+    background-color: aqua;
+    padding: 10px;
+    font-size: 20px;
+}

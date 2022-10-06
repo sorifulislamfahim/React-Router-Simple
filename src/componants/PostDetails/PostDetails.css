@@ -1,0 +1,21 @@
+.postDetails{
+    border: 2px solid blueviolet;
+    margin: 30PX;
+    padding: 20PX;
+    border-radius: 10PX;
+}
+
+.postDetails button{
+    background-color: orangered;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+}
+.postDetails button:hover{
+    background-color: coral;
+    color: white;
+}
+.postDetails:hover{
+    background-color: brown;
+    color: white;
+}
